@@ -33,12 +33,14 @@
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Message_FBU2021"];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"user"];
     query.limit = 20;
 
     // fetch data asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
             // do something with the array of object returned by the call
+            NSLog(@"Posts: %@", posts);
             self.chats = posts;
         } else {
             NSLog(@"%@", error.localizedDescription);
@@ -51,6 +53,8 @@
     PFObject *chatMessage = [PFObject objectWithClassName:@"Message_FBU2021"];
     // Use the name of your outlet to get the text the user typed
     chatMessage[@"text"] = self.chatMessageField.text;
+    
+    chatMessage[@"user"] = [PFUser currentUser];
     
     [chatMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (succeeded) {
@@ -65,7 +69,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ChatCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"ChatCell"];
     
-    cell.messageLabel.text = self.chats[indexPath.row][@"text"]; //TODO
+    PFObject *chat = self.chats[indexPath.row];
+    
+    cell.messageLabel.text = chat[@"text"];
+    
+    PFUser *user = chat[@"user"];
+    if (user != nil) {
+        // User found! update username label with username
+        cell.usernameLabel.text = user.username;
+    } else {
+        // No user found, set default username
+        cell.usernameLabel.text = @"🤖";
+    }
     
     return cell;
 }

@@ -144,12 +144,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iIB-ug-U3L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1917.3913043478262" y="100.44642857142857"/>
+            <point key="canvasLocation" x="1868" y="100"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="vyS-t2-yD7">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="w05-et-tHU" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ChatNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="w05-et-tHU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z1i-AT-ElH">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
